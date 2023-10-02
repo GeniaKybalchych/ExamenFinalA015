@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{%block content%}
+
+    {# Afficher les messages flashés #}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h1>Rechercher un projet</h1>
+<form method="post" >
+    {{form.hidden_tag()}}
+     <p>
+        {{form.codeProjet.label}}<br>
+        {{form.codeProjet(size=50)}}
+    </p>
+
+    <p>{{form.submit()}}</p>
+</form>
+{%endblock%}
+
+</body>
+</html>
