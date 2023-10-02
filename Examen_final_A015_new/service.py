@@ -8,7 +8,7 @@ def test():
     return "Test successful"
 
 # Ajouter les données
-@app.route('/projets/ajouter', methods=['POST'])
+@app.route('/projets', methods=['POST'])
 def ajouter_projet():
 
     try:
@@ -16,11 +16,11 @@ def ajouter_projet():
         data = request.json
 
         # Appelez le service DAO pour insérer les données dans la BD
-        response = requests.post(f'http://127.0.0.1:5001/projets/insert-data', json=data)
+        response = requests.post(f'http://127.0.0.1:5001/projets', json=data)
         response_data = response.json()
-        return jsonify(response_data), response.status_code
+        return jsonify(projet=response_data), response.status_code
     except Exception as e:
-        return jsonify(status="error", message=str(e)), 500
+        return jsonify(error=str(e)), 500
 
 # Rechercher les données
 @app.route('/projets/<string:codeProjet>', methods=['GET'])

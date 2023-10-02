@@ -5,7 +5,7 @@ from model import Projet, db, create_app
 app = create_app()
 
 # Ajout d'un projet
-@app.route('/projets/insert-data', methods=['POST'])
+@app.route('/projets', methods=['POST'])
 def insert_projet():
     try:
         data = request.json
@@ -16,7 +16,11 @@ def insert_projet():
         db.session.add(new_entry)
         db.session.commit()
 
-        return jsonify(status="success", message="Données ajoutées avec succès."), 200
+        # Retourner la ressource nouvellement créée
+        return jsonify({'projet': {
+            'codeProjet': new_entry.codeProjet,
+            'description': new_entry.description
+        }}), 201
     except Exception as e:
 
         app.logger.error(f"Erreur d'ajout des données: {str(e)}")
